@@ -5,21 +5,23 @@ const Gig = require("../models/Gig");
 const Sequelize = require("sequelize");
 const Op = Sequelize.Op;
 
-// Get gig list
-router.get("/", (req, res) =>
+// @route  GET /gigs
+// @desc   Get all gigs available
+// @access Public
+router.get("/", (req, res) => {
   Gig.findAll()
     .then((gigs) => {
-      res.render("gigs", {
-        gigs,
-      });
+      res.json(gigs);
     })
-    .catch((err) => console.log(err))
-);
+    .catch((err) => console.log(err));
+});
 
 // Display add gig form
+/*
 router.get("/add", (req, res) => {
-  res.render("add");
+  res.json();
 });
+*/
 
 // Add a gig
 router.post("/add", (req, res) => {
@@ -73,14 +75,17 @@ router.post("/add", (req, res) => {
   }
 });
 
-// Search for gigs
+// @route  GET /gigs/search
+// @desc   Search for Gigs
+// @access Public
 router.get("/search", (req, res) => {
   let { term } = req.query;
 
   term = term.toLowerCase();
 
   Gig.findAll({ where: { tecnologies: { [Op.like]: "%" + term + "%" } } })
-    .then((gigs) => res.render("gigs", { gigs }))
+    // .then((gigs) => res.render("gigs", { gigs }))
+    .then((gigs) => res.json(gigs))
     .catch((err) => console.log(err));
 });
 
