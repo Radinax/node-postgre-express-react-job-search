@@ -1,12 +1,7 @@
 const express = require("express");
-const Handlebars = require("handlebars");
-const exphbs = require("express-handlebars");
 const bodyParser = require("body-parser");
 const path = require("path");
 const cors = require("cors");
-const {
-  allowInsecurePrototypeAccess,
-} = require("@handlebars/allow-prototype-access");
 
 // Routes
 const gigs = require("./routes/gigs");
@@ -14,27 +9,16 @@ const gigs = require("./routes/gigs");
 // Database
 const db = require("./config/database");
 
-// Test DB
+// Connect DB
 db.authenticate()
   .then(() => console.log("Database connected"))
   .catch((err) => console.log("Error: ", err));
 
 const app = express();
 
-// Handlebars
-/*
-app.engine(
-  "handlebars",
-  exphbs({
-    defaultLayout: "main",
-    handlebars: allowInsecurePrototypeAccess(Handlebars),
-  })
-);
-app.set("view engine", "handlebars");
-*/
-
 // Body Parser
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
@@ -48,15 +32,6 @@ app.options("*", cors());
 
 /// Set static folder
 app.use(express.static(path.join(__dirname, "public")));
-
-// Index route
-/*
-app.get("/", (req, res) =>
-  res.render("index", {
-    layouts: "landing",
-  })
-);
-*/
 
 // Gig routes
 app.use("/gigs", gigs);

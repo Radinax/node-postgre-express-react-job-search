@@ -4,6 +4,7 @@ import axios from "axios";
 const GigsList = () => {
   const [gigs, setGigs] = useState([]);
 
+  // Request all gigs available
   useEffect(() => {
     axios
       .get("/gigs")
@@ -12,7 +13,7 @@ const GigsList = () => {
   }, []);
 
   const gigsList = gigs.map((gig) => (
-    <div className="gig">
+    <div className="gig" key={gig.title}>
       <h3>{gig.title}</h3>
       <p>{gig.description}</p>
       <ul>

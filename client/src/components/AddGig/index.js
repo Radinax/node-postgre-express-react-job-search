@@ -10,6 +10,7 @@ const AddGig = () => {
   const [contactEmail, setContactEmail] = useState("");
   const history = useHistory();
 
+  // Send a Job Offer (Gig)
   const onSubmit = (e) => {
     e.preventDefault();
     const gig = {
@@ -35,7 +36,7 @@ const AddGig = () => {
         </p>
         <form onSubmit={onSubmit}>
           <div className="input-group">
-            <label for="title">Gig Title</label>
+            <label>Gig Title</label>
             <input
               type="text"
               name="title"
@@ -48,7 +49,7 @@ const AddGig = () => {
             />
           </div>
           <div className="input-group">
-            <label for="tecnologies">Technologies Needed</label>
+            <label>Technologies Needed</label>
             <input
               type="text"
               name="tecnologies"
@@ -61,7 +62,7 @@ const AddGig = () => {
             />
           </div>
           <div className="input-group">
-            <label for="budget">Budget (Leave blank for unknown)</label>
+            <label>Budget (Leave blank for unknown)</label>
             <input
               type="number"
               name="budget"
@@ -73,7 +74,7 @@ const AddGig = () => {
             />
           </div>
           <div className="input-group">
-            <label for="description">Gig Description</label>
+            <label>Gig Description</label>
             <textarea
               name="description"
               id="description"
@@ -85,7 +86,7 @@ const AddGig = () => {
             ></textarea>
           </div>
           <div className="input-group">
-            <label for="budget">Contact Email</label>
+            <label>Contact Email</label>
             <input
               type="email"
               name="contactEmail"

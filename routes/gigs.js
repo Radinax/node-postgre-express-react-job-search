@@ -16,16 +16,12 @@ router.get("/", (req, res) => {
     .catch((err) => console.log(err));
 });
 
-// Display add gig form
-/*
-router.get("/add", (req, res) => {
-  res.json();
-});
-*/
-
-// Add a gig
+// @route  POST /gigs/add
+// @desc   Add a gig
+// @access Public
 router.post("/add", (req, res) => {
   let { title, tecnologies, budget, description, contactEmail } = req.body;
+  console.log("REQ", req);
   let errors = [];
 
   // Validate Fields
@@ -44,7 +40,7 @@ router.post("/add", (req, res) => {
 
   // Check for errors
   if (errors.length > 0) {
-    res.render("add", {
+    res.json({
       errors,
       title,
       tecnologies,
@@ -70,7 +66,15 @@ router.post("/add", (req, res) => {
       budget,
       contactEmail,
     })
-      .then((gig) => res.redirect("/gigs"))
+      .then((gig) =>
+        res.json({
+          title,
+          description,
+          tecnologies,
+          budget,
+          contactEmail,
+        })
+      )
       .catch((err) => console.log(err));
   }
 });
@@ -84,7 +88,6 @@ router.get("/search", (req, res) => {
   term = term.toLowerCase();
 
   Gig.findAll({ where: { tecnologies: { [Op.like]: "%" + term + "%" } } })
-    // .then((gigs) => res.render("gigs", { gigs }))
     .then((gigs) => res.json(gigs))
     .catch((err) => console.log(err));
 });
