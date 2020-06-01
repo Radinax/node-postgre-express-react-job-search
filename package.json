@@ -6,7 +6,13 @@
   "license": "MIT",
   "scripts": {
     "start": "node app.js",
-    "server": "nodemon app.js"
+    "server": "nodemon app.js",
+    "heroku-postbuild": "cd client && yarn install && yarn build"
+  },
+  "engines": {
+    "node": "10.15.3",
+    "npm": "6.13.7",
+    "yarn": "1.21.1"
   },
   "dependencies": {
     "@handlebars/allow-prototype-access": "^1.0.3",
